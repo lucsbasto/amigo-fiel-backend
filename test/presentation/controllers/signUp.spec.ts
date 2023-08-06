@@ -1,8 +1,6 @@
-import { type AddAccount, type AddAccountModel } from '../../../src/domain/usecases/add-account'
-import { type AccountModel } from '../../../src/domain/models/account'
-import { SignUpController } from '../../../src/presentation/controllers/signUp'
+import { SignUpController } from '../../../src/presentation/controllers/signup/signup'
+import { type EmailValidator, type AddAccountModel, type AddAccount, type AccountModel } from '../../../src/presentation/controllers/signup/signup-protocols'
 import { InvalidParamError, MissingParamError, ServerError } from '../../../src/presentation/errors'
-import { type EmailValidator } from '../../../src/presentation/protocols/email-validator'
 
 interface SutTypes {
   emailValidatorStub: EmailValidator
