@@ -1,5 +1,5 @@
 module.exports = {
-  roots: ['<rootDir>/src'],
+  roots: ['<rootDir>/test'],
   collectCoverageFrom: ['<rootDir>/src/**/*.ts'],
   clearMocks: true,
   collectCoverage: true,
