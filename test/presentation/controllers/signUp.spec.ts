@@ -107,7 +107,7 @@ describe('SignUp Controller', () => {
     const httpResponse = sut.handle(httpRequest)
     expect(httpResponse.statusCode).toBe(400)
   })
-  test('Should call EmailValidator with correct params 400 if an invalid email is provided', () => {
+  test('Should call EmailValidator with correct params', () => {
     const { sut, emailValidatorStub } = makeSut()
     const httpRequest = {
       body: {
