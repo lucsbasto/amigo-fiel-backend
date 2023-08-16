@@ -1,40 +1,8 @@
-interface Image {
-    id: string;
-    imageUrl: string;
-}
-
-interface Company {
-    id: number;
-    name: string;
-    description: string;
-    logoUrl: string;
-    websiteUrl: string;
-    phoneNumber: string;
-    address: string;
-}
-
-interface Address {
-    id: string;
-    street: string;
-    number: string;
-    block: string;
-    cep: string;
-}
-
-interface User {
-    id?: string | null;
-    firstName: string;
-    lastName: string;
-    phoneNumber: string;
-    email: string;
-    isAdmin: boolean;
-    isVerified: boolean;
-    addressId?: string | null;
-    avatarUrl?: string | null;
-    fullName?: string | null;
-}
-
-interface FeedSpot {
+import { Address } from 'cluster';
+import { Company } from 'src/companies/interfaces/company';
+import { Image } from 'src/images/interfaces/image';
+import { User } from 'src/users/interfaces/users';
+export interface FeedSpot {
     id: string;
     isFull: boolean;
     filledBy?: User | null;
