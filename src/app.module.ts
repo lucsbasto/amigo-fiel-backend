@@ -6,9 +6,20 @@ import { UsersModule } from './users/users.module';
 import { AddressesModule } from './addresses/addresses.module';
 import { CompaniesModule } from './companies/companies.module';
 import { ImagesModule } from './images/images.module';
+import { ConfigModule } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { typeOrmConfig } from './typeorm.config';
 
 @Module({
-  imports: [FeedspotsModule, UsersModule, AddressesModule, CompaniesModule, ImagesModule],
+  imports: [
+    ConfigModule.forRoot(),
+    TypeOrmModule.forRoot(typeOrmConfig),
+    FeedspotsModule,
+    UsersModule,
+    AddressesModule,
+    CompaniesModule,
+    ImagesModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
