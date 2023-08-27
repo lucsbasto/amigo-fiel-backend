@@ -8,17 +8,24 @@ import { CompaniesModule } from './companies/companies.module';
 import { ImagesModule } from './images/images.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { typeOrmConfig } from './typeorm.config';
+import { AuthModule } from './auth/auth.module';
+import { SupabaseModule } from './utils/supabase/supabase.module';
+import { PostgresqlConfigService } from './database/postgresql-config.service';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
-    TypeOrmModule.forRoot(typeOrmConfig),
+    ConfigModule.forRoot({ isGlobal: true, envFilePath: '.env' }),
+    TypeOrmModule.forRootAsync({
+      useClass: PostgresqlConfigService,
+      inject: [PostgresqlConfigService],
+    }),
     FeedspotsModule,
     UsersModule,
     AddressesModule,
     CompaniesModule,
     ImagesModule,
+    AuthModule,
+    SupabaseModule,
   ],
   controllers: [AppController],
   providers: [AppService],

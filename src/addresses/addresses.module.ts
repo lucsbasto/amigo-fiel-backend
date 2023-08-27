@@ -5,10 +5,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from 'src/users/user.entity';
 import { Address } from './address.entity';
 import { Company } from 'src/companies/company.entity';
-import { Image } from 'src/images/image.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User, Address, Company, Image])],
+  imports: [TypeOrmModule.forFeature([User, Address, Company])],
   providers: [AddressesService],
   controllers: [AddressesController],
 })
