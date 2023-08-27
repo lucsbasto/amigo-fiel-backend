@@ -4,14 +4,17 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { User } from './user.entity';
 import { AuthUser } from '@supabase/supabase-js';
-import { Supabase } from 'src/utils/supabase';
+import { ImagesService } from 'src/images/images.service';
+import { BucketEnum } from 'src/utils/enums/bucket.enum';
+import { RequestWithUser } from 'src/utils/interfaces/request-user';
+import { getFile } from 'src/utils/get-file';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User)
     private readonly repository: UserRepository,
-    private readonly supabase: Supabase,
+    private imageService: ImagesService,
   ) {}
 
   async findAll() {
@@ -27,8 +30,11 @@ export class UsersService {
   }
 
   async create(createUserDto: CreateUserDto): Promise<User> {
-    createUserDto.lastName = `${createUserDto.firstName} ${createUserDto.lastName}`;
-    return this.repository.create(createUserDto);
+    const { identifiers } = await this.repository.insert(createUserDto);
+    const user = await this.repository.findOne({
+      where: { id: identifiers.at(0).id },
+    });
+    return user;
   }
 
   async getLoggedUser(authUser?: AuthUser): Promise<User> {
@@ -40,5 +46,17 @@ export class UsersService {
       relations: ['address'],
     });
     return user;
+  }
+
+  async uploadAvatar(req: RequestWithUser): Promise<User> {
+    const { user, file } = getFile(req);
+    const imageUploaded = await this.imageService.upload(
+      file,
+      BucketEnum.AVATARS,
+    );
+    const updatedUser = await this.findById(user.id);
+    updatedUser.avatarUrl = imageUploaded.path;
+    await this.repository.save(updatedUser);
+    return updatedUser;
   }
 }

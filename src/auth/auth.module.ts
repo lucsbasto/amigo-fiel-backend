@@ -9,6 +9,7 @@ import { Company } from 'src/companies/company.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { SupabaseModule } from 'src/utils/supabase';
+import { ImagesService } from 'src/images/images.service';
 
 @Module({
   imports: [
@@ -17,6 +18,6 @@ import { SupabaseModule } from 'src/utils/supabase';
     TypeOrmModule.forFeature([User, Address, Company]),
   ],
   controllers: [AuthController],
-  providers: [AuthService, UsersService, UserRepository],
+  providers: [AuthService, UsersService, UserRepository, ImagesService],
 })
 export class AuthModule {}

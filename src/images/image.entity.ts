@@ -1,6 +1,6 @@
 import { FeedSpot } from 'src/feedspots/feedspot.entity';
 import { BaseEntity } from 'src/utils/entities/base.entity';
-import { Entity, Column, ManyToOne } from 'typeorm';
+import { Entity, Column, ManyToOne, OneToMany } from 'typeorm';
 
 @Entity('images')
 export class Image extends BaseEntity {

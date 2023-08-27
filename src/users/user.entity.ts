@@ -3,7 +3,6 @@ import { FeedSpot } from 'src/feedspots/feedspot.entity';
 import { BaseEntity } from 'src/utils/entities/base.entity';
 import {
   Entity,
-  PrimaryGeneratedColumn,
   Column,
   OneToMany,
   ManyToMany,
@@ -13,29 +12,29 @@ import {
 
 @Entity('users')
 export class User extends BaseEntity {
-  @Column({ nullable: true })
+  @Column()
   firstName: string;
 
-  @Column({ nullable: true })
+  @Column()
   lastName: string;
 
-  @Column({ nullable: true })
+  @Column()
   phoneNumber: string;
 
-  @Column({ nullable: true })
+  @Column()
   email: string;
 
-  @Column({ nullable: true })
+  @Column({ nullable: true, default: false })
   isAdmin: boolean;
 
-  @Column({ nullable: true })
+  @Column({ nullable: true, default: false })
   isVerified: boolean;
 
   @Column({ nullable: true })
-  avatarUrl: string | null;
+  avatarUrl?: string;
 
-  @Column({ nullable: true })
-  fullName: string | null;
+  @Column()
+  fullName?: string;
 
   @OneToMany((_type) => FeedSpot, (feedSpot) => feedSpot.filledBy)
   filledFeedSpots: FeedSpot[];
@@ -49,7 +48,7 @@ export class User extends BaseEntity {
   @Column({ nullable: true })
   addressId: string;
 
-  @OneToOne((type) => Address)
+  @OneToOne((_type) => Address)
   @JoinColumn()
   address: Address;
 }

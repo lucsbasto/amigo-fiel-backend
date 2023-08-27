@@ -3,12 +3,15 @@ import {
   Get,
   Logger,
   Param,
+  Post,
   Request,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UserResponseDto } from './dtos/user-response.dto';
 import { SupabaseGuard } from 'src/utils/supabase';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('users')
 @UseGuards(SupabaseGuard)
@@ -31,5 +34,11 @@ export class UsersController {
   @Get('logged')
   async getLoggedUser(@Request() req: any) {
     return this.service.getLoggedUser(req.user);
+  }
+
+  @Post('upload')
+  @UseInterceptors(FileInterceptor('file'))
+  async upload(@Request() req: any) {
+    return this.service.uploadAvatar(req);
   }
 }

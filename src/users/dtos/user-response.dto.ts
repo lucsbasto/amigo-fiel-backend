@@ -20,18 +20,18 @@ export class UserResponseDto {
   @ApiProperty()
   email: string;
 
-  @ApiProperty()
-  isAdmin: boolean;
+  @ApiPropertyOptional()
+  isAdmin?: boolean;
 
-  @ApiProperty()
-  isVerified: boolean;
+  @ApiPropertyOptional()
+  isVerified?: boolean;
 
-  @ApiProperty()
+  @ApiPropertyOptional()
   address?: Address;
 
-  @ApiProperty()
+  @ApiPropertyOptional()
   avatarUrl?: string;
 
-  @ApiProperty()
+  @ApiPropertyOptional()
   fullName?: string;
 }
